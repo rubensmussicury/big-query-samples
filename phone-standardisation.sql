@@ -1,8 +1,10 @@
 /*********************************************************************************
  FILE         : phone-standardisation.sql
  NAME         : Phone Standardisation on BigQuery
- DESCRIPTION  : Sample of how standardise phone number using external JS 
-                library "libphonenumber" on BigQuery and UDF JavaScript
+ DESCRIPTION  : Sample demonstrating how to standardise, get the type and 
+                validate phone numbers using BigQuery and UDF JavaScript
+                library "libphonenumber" by Google
+                
  AUTHOR       : Rubens Mussi Cury
  DATE         : 01-02-2022
 =================================================================================*/
@@ -27,8 +29,8 @@ CREATE TEMP FUNCTION STD_PHONE(phoneString STRING)
   # Download the compiled JS and upload to your GCS
   # https://catamphetamine.gitlab.io/libphonenumber-js/libphonenumber-max.js
   # Original - [https://github.com/google/libphonenumber]
-  # Rewrite  - [https://catamphetamine.gitlab.io/libphonenumber-js]
-  OPTIONS (library=["gs://rubens-playground/libphonenumber-max.js"])
+  # Rewrite  - [https://github.com/catamphetamine/libphonenumber-js]
+  OPTIONS (library=["gs://my-bucket/libphonenumber-max.js"])
 AS
 r"""
 
