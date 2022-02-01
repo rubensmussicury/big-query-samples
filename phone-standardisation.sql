@@ -1,11 +1,11 @@
 /*********************************************************************************
  FILE         : phone-standardisation.sql
  NAME         : Phone Standardisation on BigQuery
- DESCRIPTION  : Sample of how standardise phone number using external JS
-                library on BigQuery.
+ DESCRIPTION  : Sample of how standardise phone number using external JS 
+                library "libphonenumber" on BigQuery and UDF JavaScript
  AUTHOR       : Rubens Mussi Cury
  DATE         : 01-02-2022
-=================================================================================
+=================================================================================*/
 
 DECLARE PHONE_NUMS ARRAY<STRING>;
 
@@ -26,9 +26,9 @@ CREATE TEMP FUNCTION STD_PHONE(phoneString STRING)
   LANGUAGE js
   # Download the compiled JS and upload to your GCS
   # https://catamphetamine.gitlab.io/libphonenumber-js/libphonenumber-max.js
-  # Original - https://github.com/google/libphonenumber
-  # Rewrite - https://catamphetamine.gitlab.io/libphonenumber-js
-  OPTIONS (library=["gs://my-bucket/libphonenumber-max.js"])
+  # Original - [https://github.com/google/libphonenumber]
+  # Rewrite  - [https://catamphetamine.gitlab.io/libphonenumber-js]
+  OPTIONS (library=["gs://rubens-playground/libphonenumber-max.js"])
 AS
 r"""
 
@@ -65,4 +65,3 @@ SELECT
   JSON_EXTRACT_SCALAR(STD_PHONE(PHONE), "$.Valid") AS VALID
 FROM 
   UNNEST(PHONE_NUMS) AS PHONE
-              
