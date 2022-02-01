@@ -1,2 +1,2 @@
-# big-query-samples
+# bigquery-samples
 Useful BigQuery Samples
